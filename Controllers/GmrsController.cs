@@ -8,14 +8,14 @@ using System.Web.Http;
 
 namespace GMRS.Controllers
 {
-    public class CategoryController : ApiController
+    public class GmrsController : ApiController
     {
-        public IEnumerable<Category> getCategories()
+        public IEnumerable<Data> getCategories()
         {
-            IEnumerable<Category> res;
-            using (var db = new GMRSDBEntities())
+            IEnumerable<Data> res;
+            using (var db = new GMRSEntities())
             {
-                res = db.Category.ToList();
+                res = db.Data.ToList();
             }
             return res;
         }

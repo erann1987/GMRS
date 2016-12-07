@@ -1,18 +1,18 @@
 ﻿angular.module('GMRSapp').factory('AppService', function ($http) {
-    //var fac = {};
+    var fac = {};
 
-    ////get all movies service
-    //fac.GetMovies = function (pi) {
-    //    req = {
-    //        method: 'GET',
-    //        url: '/api/movies/?pageIndex=' + pi,
-    //        headers: {
-    //            'Content-Type': 'application/json',
-    //            'Accept': 'application/json'
-    //        }
-    //    }
-    //    return $http(req);
-    //}
+    //get all movies service
+    fac.GetCategories = function () {
+        req = {
+            method: 'GET',
+            url: '/api/gmrs/',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        return $http(req);
+    }
 
     ////add movie service
     //fac.addMovie = function (movie) {
@@ -42,5 +42,5 @@
     //    return $http(req);
     //}
 
-    //return fac;
+    return fac;
 });

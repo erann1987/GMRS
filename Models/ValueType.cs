@@ -16,7 +16,5 @@ namespace GMRS.Models
     {
         public int ValueTypeID { get; set; }
         public string ValueTypeName { get; set; }
-    
-        public virtual Data Data { get; set; }
     }
 }

@@ -82,59 +82,64 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="Models\GMRSDB_Model.Context.tt">
+    <Content Include="Models\GMRS_Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GMRSDB_Model.edmx</DependentUpon>
-      <LastGenOutput>GMRSDB_Model.Context.cs</LastGenOutput>
+      <DependentUpon>GMRS_Model.edmx</DependentUpon>
+      <LastGenOutput>GMRS_Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\GMRSDB_Model.tt">
+    <Content Include="Models\GMRS_Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GMRSDB_Model.edmx</DependentUpon>
-      <LastGenOutput>GMRSDB_Model.cs</LastGenOutput>
+      <DependentUpon>GMRS_Model.edmx</DependentUpon>
+      <LastGenOutput>GMRS_Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\angular-datatables.min.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\src\app-controller.js" />
     <Content Include="Scripts\src\app-service.js" />
     <Content Include="Scripts\src\app.js" />
+    <Content Include="Styles\angular-datatables.css" />
     <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\bootstrapFonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Styles\datatables.bootstrap.min.css" />
+    <Content Include="Styles\jquery.dataTables.min.css" />
     <Content Include="Styles\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\GmrsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>GMRSDB_Model.tt</DependentUpon>
+      <DependentUpon>GMRS_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Data.cs">
-      <DependentUpon>GMRSDB_Model.tt</DependentUpon>
+      <DependentUpon>GMRS_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataCategory.cs">
-      <DependentUpon>GMRSDB_Model.tt</DependentUpon>
+      <DependentUpon>GMRS_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GMRSDB_Model.Context.cs">
+    <Compile Include="Models\GMRS_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GMRSDB_Model.Context.tt</DependentUpon>
+      <DependentUpon>GMRS_Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GMRSDB_Model.cs">
+    <Compile Include="Models\GMRS_Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GMRSDB_Model.tt</DependentUpon>
+      <DependentUpon>GMRS_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GMRSDB_Model.Designer.cs">
+    <Compile Include="Models\GMRS_Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GMRSDB_Model.edmx</DependentUpon>
+      <DependentUpon>GMRS_Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ValueType.cs">
-      <DependentUpon>GMRSDB_Model.tt</DependentUpon>
+      <DependentUpon>GMRS_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -144,12 +149,12 @@
     <Content Include="Styles\bootstrapFonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Styles\bootstrapFonts\glyphicons-halflings-regular.woff" />
     <Content Include="Styles\bootstrapFonts\glyphicons-halflings-regular.woff2" />
-    <EntityDeploy Include="Models\GMRSDB_Model.edmx">
+    <EntityDeploy Include="Models\GMRS_Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GMRSDB_Model.Designer.cs</LastGenOutput>
+      <LastGenOutput>GMRS_Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\GMRSDB_Model.edmx.diagram">
-      <DependentUpon>GMRSDB_Model.edmx</DependentUpon>
+    <Content Include="Models\GMRS_Model.edmx.diagram">
+      <DependentUpon>GMRS_Model.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

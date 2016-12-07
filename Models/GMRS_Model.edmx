@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GMRSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GMRSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -38,18 +38,6 @@
           <Property Name="ValueTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ValueTypeName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Data_ValueType">
-          <End Role="ValueType" Type="Self.ValueType" Multiplicity="1" />
-          <End Role="Data" Type="Self.Data" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="ValueType">
-              <PropertyRef Name="ValueTypeID" />
-            </Principal>
-            <Dependent Role="Data">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DataCategory_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="DataCategory" Type="Self.DataCategory" Multiplicity="*" />
@@ -62,33 +50,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DataCategory_Data">
-          <End Role="Data" Type="Self.Data" Multiplicity="1" />
-          <End Role="DataCategory" Type="Self.DataCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Data">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DataCategory">
-              <PropertyRef Name="DataID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="GMRSDBModelStoreContainer">
+        <EntityContainer Name="GMRSModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Data" EntityType="Self.Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataCategory" EntityType="Self.DataCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ValueType" EntityType="Self.ValueType" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Data_ValueType" Association="Self.FK_Data_ValueType">
-            <End Role="ValueType" EntitySet="ValueType" />
-            <End Role="Data" EntitySet="Data" />
-          </AssociationSet>
           <AssociationSet Name="FK_DataCategory_Category" Association="Self.FK_DataCategory_Category">
             <End Role="Category" EntitySet="Category" />
-            <End Role="DataCategory" EntitySet="DataCategory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DataCategory_Data" Association="Self.FK_DataCategory_Data">
-            <End Role="Data" EntitySet="Data" />
             <End Role="DataCategory" EntitySet="DataCategory" />
           </AssociationSet>
         </EntityContainer>
@@ -96,7 +64,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GMRSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="GMRSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -114,8 +82,6 @@
           <Property Name="ValueTypeID" Type="Int32" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <Property Name="Month" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ValueType" Relationship="Self.FK_Data_ValueType" FromRole="Data" ToRole="ValueType" />
-          <NavigationProperty Name="DataCategory" Relationship="Self.FK_DataCategory_Data" FromRole="Data" ToRole="DataCategory" />
         </EntityType>
         <EntityType Name="DataCategory">
           <Key>
@@ -126,7 +92,6 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="CategoryDesc" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_DataCategory_Category" FromRole="DataCategory" ToRole="Category" />
-          <NavigationProperty Name="Data" Relationship="Self.FK_DataCategory_Data" FromRole="DataCategory" ToRole="Data" />
         </EntityType>
         <EntityType Name="ValueType">
           <Key>
@@ -134,7 +99,6 @@
           </Key>
           <Property Name="ValueTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ValueTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Data" Relationship="Self.FK_Data_ValueType" FromRole="ValueType" ToRole="Data" />
         </EntityType>
         <Association Name="FK_DataCategory_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -148,31 +112,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Data_ValueType">
-          <End Role="ValueType" Type="Self.ValueType" Multiplicity="1" />
-          <End Role="Data" Type="Self.Data" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="ValueType">
-              <PropertyRef Name="ValueTypeID" />
-            </Principal>
-            <Dependent Role="Data">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DataCategory_Data">
-          <End Role="Data" Type="Self.Data" Multiplicity="1" />
-          <End Role="DataCategory" Type="Self.DataCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Data">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DataCategory">
-              <PropertyRef Name="DataID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="GMRSDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GMRSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Data" EntityType="Self.Data" />
           <EntitySet Name="DataCategory" EntityType="Self.DataCategory" />
@@ -181,23 +121,15 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="DataCategory" EntitySet="DataCategory" />
           </AssociationSet>
-          <AssociationSet Name="FK_Data_ValueType" Association="Self.FK_Data_ValueType">
-            <End Role="ValueType" EntitySet="ValueType" />
-            <End Role="Data" EntitySet="Data" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DataCategory_Data" Association="Self.FK_DataCategory_Data">
-            <End Role="Data" EntitySet="Data" />
-            <End Role="DataCategory" EntitySet="DataCategory" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GMRSDBModelStoreContainer" CdmEntityContainer="GMRSDBEntities">
+        <EntityContainerMapping StorageEntityContainer="GMRSModelStoreContainer" CdmEntityContainer="GMRSEntities">
           <EntitySetMapping Name="Category">
-            <EntityTypeMapping TypeName="GMRSDBModel.Category">
+            <EntityTypeMapping TypeName="GMRSModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -205,7 +137,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Data">
-            <EntityTypeMapping TypeName="GMRSDBModel.Data">
+            <EntityTypeMapping TypeName="GMRSModel.Data">
               <MappingFragment StoreEntitySet="Data">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
@@ -216,7 +148,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DataCategory">
-            <EntityTypeMapping TypeName="GMRSDBModel.DataCategory">
+            <EntityTypeMapping TypeName="GMRSModel.DataCategory">
               <MappingFragment StoreEntitySet="DataCategory">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DataID" ColumnName="DataID" />
@@ -226,7 +158,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ValueType">
-            <EntityTypeMapping TypeName="GMRSDBModel.ValueType">
+            <EntityTypeMapping TypeName="GMRSModel.ValueType">
               <MappingFragment StoreEntitySet="ValueType">
                 <ScalarProperty Name="ValueTypeID" ColumnName="ValueTypeID" />
                 <ScalarProperty Name="ValueTypeName" ColumnName="ValueTypeName" />

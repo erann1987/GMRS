@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GMRSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DataCategory" Relationship="Self.FK_DataCategory_Category" FromRole="Category" ToRole="DataCategory" />
+  </EntityType>
+  <EntityType Name="Data">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Value" Type="Double" Nullable="false" />
+    <Property Name="ValueTypeID" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Month" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DataCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DataID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryDesc" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_DataCategory_Category" FromRole="DataCategory" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="ValueType">
+    <Key>
+      <PropertyRef Name="ValueTypeID" />
+    </Key>
+    <Property Name="ValueTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ValueTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_DataCategory_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="DataCategory" Type="Self.DataCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="DataCategory">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GMRSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="Data" EntityType="Self.Data" />
+    <EntitySet Name="DataCategory" EntityType="Self.DataCategory" />
+    <EntitySet Name="ValueType" EntityType="Self.ValueType" />
+    <AssociationSet Name="FK_DataCategory_Category" Association="Self.FK_DataCategory_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="DataCategory" EntitySet="DataCategory" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

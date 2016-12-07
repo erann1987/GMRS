@@ -13,10 +13,10 @@ namespace GMRS.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GMRSDBEntities : DbContext
+    public partial class GMRSEntities : DbContext
     {
-        public GMRSDBEntities()
-            : base("name=GMRSDBEntities")
+        public GMRSEntities()
+            : base("name=GMRSEntities")
         {
         }
     
