@@ -20,5 +20,6 @@ namespace GMRS.Models
         public string CategoryDesc { get; set; }
     
         public virtual Category Category { get; set; }
+        public virtual Data Data { get; set; }
     }
 }

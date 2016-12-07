@@ -10,14 +10,23 @@ namespace GMRS.Controllers
 {
     public class GmrsController : ApiController
     {
-        public IEnumerable<Data> getCategories()
+        public IHttpActionResult getCategories()
         {
             IEnumerable<Data> res;
-            using (var db = new GMRSEntities())
+            
+            using (var db = new GMRSDBEntities1())
             {
-                res = db.Data.ToList();
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    res=db.Data.ToList();
+                    return Ok(res);                        
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
             }
-            return res;
         }
     }
 }

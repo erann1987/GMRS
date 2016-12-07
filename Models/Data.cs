@@ -14,10 +14,18 @@ namespace GMRS.Models
     
     public partial class Data
     {
+        public Data()
+        {
+            this.DataCategory = new HashSet<DataCategory>();
+        }
+    
         public int ID { get; set; }
         public double Value { get; set; }
         public int ValueTypeID { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
+    
+        public virtual ValueType ValueType { get; set; }
+        public virtual ICollection<DataCategory> DataCategory { get; set; }
     }
 }

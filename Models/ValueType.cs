@@ -14,7 +14,14 @@ namespace GMRS.Models
     
     public partial class ValueType
     {
+        public ValueType()
+        {
+            this.Data = new HashSet<Data>();
+        }
+    
         public int ValueTypeID { get; set; }
         public string ValueTypeName { get; set; }
+    
+        public virtual ICollection<Data> Data { get; set; }
     }
 }
