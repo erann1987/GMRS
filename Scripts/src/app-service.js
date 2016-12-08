@@ -38,17 +38,6 @@
         return $http(req);
     }
 
-    fac.GetAllDataCategory = function () {
-        req = {
-            method: 'GET',
-            url: '/api/gmrs/datacategory',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
-        return $http(req);
-    }
 
     ////add movie service
     //fac.addMovie = function (movie) {
