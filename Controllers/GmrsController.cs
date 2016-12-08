@@ -79,26 +79,6 @@ namespace GMRS.Controllers
                 }
             }
         }
-
-        [Route("api/gmrs/datacategory")]
-        public IHttpActionResult getDataCategory()
-        {
-            IEnumerable<GMRS.Models.DataCategory> res;
-
-            using (var db = new GMRSDBEntities1())
-            {
-                try
-                {
-                    db.Configuration.ProxyCreationEnabled = false;
-                    res = db.DataCategory.ToList();
-                    return Ok(res);
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-            }
-        }
     }
 
 }
