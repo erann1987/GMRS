@@ -14,19 +14,24 @@
     <title>GMRS</title>
 </head>
 <body ng-app="GMRSapp">
-    <div class="jumbotron text-center">
-        <h1>ברוכים הבאים למערכת GMRS!</h1>
-        <p>כאן תוכל להפיק ולנהל דוחות בקלות</p>
+    <div class="jumbotron">
+        <h1 class="display-3">ברוך הבא ל - GMRS !</h1>
+        <p class="lead">כאן תוכל ליצור דוחות אינטרקטיבים בצורה מהירה ויעילה!.</p>
+        <hr class="my-2">
+        <p>פותח ע"י: ערן נחום וגור אריה יהודה</p>
+        <p class="lead">
+            <a class="btn btn-info btn-lg" href="#" role="button">קרא עוד</a>
+        </p>
     </div>
     <div ng-controller="AppController">
         <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
         <div class="container">
             <p>לחץ על סוג הטבלה שברצונך לטעון:</p>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary" ng-click="getAllCategories()">מידע</button>
-                <button type="button" class="btn btn-primary">קטגוריות</button>
-                <button type="button" class="btn btn-primary"> קטגוריות ומידע</button>
+            <div class="btn-group">                
                 <button type="button" class="btn btn-primary">ערכים</button>
+                <button type="button" class="btn btn-primary"> קטגוריות ומידע</button>
+                <button type="button" class="btn btn-primary">קטגוריות</button>
+                <button type="button" class="btn btn-primary" ng-click="getAllCategories()">מידע</button>
             </div>
         </div>
         <div class="container">
