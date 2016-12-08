@@ -20,8 +20,19 @@ namespace GMRS.Controllers
                 try
                 {
                     db.Configuration.ProxyCreationEnabled = false;
-                    res=db.Data.ToList();
-                    return Ok(res);                        
+                    var data = (from DataCategory in db.DataCategory
+                                select new
+                                {
+                                    DataCategory.Data.Value,
+                                    DataCategory.Data.Year,
+                                    DataCategory.Data.Month,
+                                    DataCategory.Data.ValueType.ValueTypeName,
+                                    DataCategory.CategoryDesc
+                                }).ToList(); 
+                    
+
+                    //res=db.Data.ToList();
+                    return Ok(data);                        
                 }
                 catch (Exception ex)
                 {
@@ -89,4 +100,5 @@ namespace GMRS.Controllers
             }
         }
     }
+
 }

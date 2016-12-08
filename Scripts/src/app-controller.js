@@ -14,6 +14,7 @@
 
 	    $scope.showIncome_outcomeCart = false;
 	    $scope.showIncome_categotyCart = false;
+	    $scope.showPieChart = false;
 
 
 
@@ -159,6 +160,62 @@
 	        });
 	    }
 
+	    $scope.loadPieChart = function ()
+	    {
+	        $scope.showPieChart = true
+	        Highcharts.chart('pieChart', {
+	            chart: {
+	                plotBackgroundColor: null,
+	                plotBorderWidth: null,
+	                plotShadow: false,
+	                type: 'pie'
+	            },
+	            title: {
+	                text: 'פילוג הכנסות לפי קטגוריה שנת 2015'
+	            },
+	            tooltip: {
+	                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	            },
+	            plotOptions: {
+	                pie: {
+	                    allowPointSelect: true,
+	                    cursor: 'pointer',
+	                    dataLabels: {
+	                        enabled: true,
+	                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+	                        style: {
+	                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+	                        }
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: 'Cities',
+	                colorByPoint: true,
+	                data: [{
+	                    name: 'Tel aviv',
+	                    y: 56.33
+	                }, {
+	                    name: 'Jerusalem',
+	                    y: 24.03,
+	                    sliced: true,
+	                    selected: true
+	                }, {
+	                    name: 'Haifa',
+	                    y: 10.38
+	                }, {
+	                    name: 'Ashdod',
+	                    y: 4.77
+	                }, {
+	                    name: 'Eilat',
+	                    y: 0.91
+	                }, {
+	                    name: 'Natanya',
+	                    y: 0.2
+	                }]
+	            }]
+	        });
+	    }
 	    
 
  }]);
