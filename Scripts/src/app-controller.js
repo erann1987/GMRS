@@ -28,8 +28,6 @@
 	    $scope.valueTypeList = [];
 	    $scope.show_valueType_table = false;
 
-	    $scope.dataCategoryList = [];
-	    $scope.show_dataCategory_table = false;
 
 	    $scope.getAllData = function () {
 	        AppService.GetAllData().then(function (results) {
@@ -58,14 +56,6 @@
 	        });
 	    }
 
-	    $scope.getAllDataCategory = function () {
-	        AppService.GetAllDataCategory().then(function (results) {
-	            $scope.dataCategoryList = results.data;
-	            $scope.show_dataCategory_table = true;
-	        }, function (e) {
-	            alert("getting categories failed");
-	        });
-	    }
 
 	    $scope.loadIncome_outcomeChart = function ()
 	    {
