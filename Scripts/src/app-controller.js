@@ -13,13 +13,50 @@
 
 
 	    $scope.dataList = [];
-	    $scope.show_table=false;
+	    $scope.show_data_table = false;
 
+	    $scope.categoryList = [];
+	    $scope.show_category_table = false;
+
+	    $scope.valueTypeList = [];
+	    $scope.show_valueType_table = false;
+
+	    $scope.dataCategoryList = [];
+	    $scope.show_dataCategory_table = false;
+
+
+
+	    $scope.getAllData = function () {
+	        AppService.GetAllData().then(function (results) {
+	            $scope.dataList = results.data;
+	            $scope.show_data_table = true;
+	        }, function (e) {
+	            alert("getting categories failed");
+	        });
+	    }
 
 	    $scope.getAllCategories = function () {
-	        AppService.GetCategories().then(function (results) {
-	            $scope.dataList = results.data;
-	            $scope.show_table = true;
+	        AppService.GetAllCategories().then(function (results) {
+	            $scope.categoryList = results.data;
+	            $scope.show_category_table = true;
+	        }, function (e) {
+	            alert("getting categories failed");
+	        });
+	    }
+
+	    $scope.getAllValueType = function () {
+	        AppService.GetAllValueType().then(function (results) {
+	            $scope.valueTypeList = results.data;
+	            $scope.show_valueType_table = true;
+	        }, function (e) {
+	            alert("getting categories failed");
+	        });
+	    }
+
+	    $scope.getAllDataCategory = function () {
+	        AppService.GetAllDataCategory().then(function (results) {
+	            $scope.dataCategoryList = results.data;
+	            $scope.show_dataCategory_table = true;
 	        }, function (e) {
 	            alert("getting categories failed");
 	        });

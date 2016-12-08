@@ -16,7 +16,7 @@
 <body ng-app="GMRSapp">
     <div class="jumbotron">
         <h1 class="display-3">ברוך הבא ל - GMRS !</h1>
-        <p class="lead">כאן תוכל ליצור דוחות אינטרקטיבים בצורה מהירה ויעילה!.</p>
+        <p class="lead">כאן תוכל ליצור דוחות אינטרקטיבים בצורה מהירה ויעילה!</p>
         <hr class="my-2">
         <p>פותח ע"י: ערן נחום וגור אריה יהודה</p>
         <p class="lead">
@@ -27,34 +27,87 @@
         <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
         <div class="container">
             <p>לחץ על סוג הטבלה שברצונך לטעון:</p>
-            <div class="btn-group">                
-                <button type="button" class="btn btn-primary">ערכים</button>
-                <button type="button" class="btn btn-primary"> קטגוריות ומידע</button>
-                <button type="button" class="btn btn-primary">קטגוריות</button>
-                <button type="button" class="btn btn-primary" ng-click="getAllCategories()">מידע</button>
+            <div style="margin-bottom:15px" class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="getAllValueType()">ערכים</button>
+                <button type="button" class="btn btn-primary" ng-click="getAllDataCategory()"> קטגוריות ומידע</button>
+                <button type="button" class="btn btn-primary" ng-click="getAllCategories()">קטגוריות</button>
+                <button type="button" class="btn btn-primary" ng-click="getAllData()">מידע</button>
             </div>
-        </div>
-        <div class="container">
-            <table ng-show="show_table" id="table_id" class="table table-inverse">
-                <thead>
-                    <tr>
-                        <th>מקט</th>
-                        <th>ערך</th>
-                        <th>סוג</th>
-                        <th>חודש</th>
-                        <th>שנה</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="data in dataList">
-                        <td>{{data.ID}}</td>
-                        <td>{{data.Value}}</td>
-                        <td>{{data.ValueTypeID}}</td>
-                        <td>{{data.Month}}</td>
-                        <td>{{data.Year}}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div ng-show="show_data_table" id="data_table">
+                <table class="table table-inverse">
+                    <thead>
+                        <tr>
+                            <th>מקט</th>
+                            <th>ערך</th>
+                            <th>סוג</th>
+                            <th>חודש</th>
+                            <th>שנה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in dataList">
+                            <td>{{data.ID}}</td>
+                            <td>{{data.Value}}</td>
+                            <td>{{data.ValueTypeID}}</td>
+                            <td>{{data.Month}}</td>
+                            <td>{{data.Year}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-show="show_category_table" id="category_table">
+                <table class="table table-inverse">
+                    <thead>
+                        <tr>
+                            <th>מקט</th>
+                            <th>קטגוריה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="cat in categoryList">
+                            <td>{{cat.CategoryID}}</td>
+                            <td>{{cat.CategoryName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-show="show_valueType_table" id="valueType_table">
+                <table class="table table-inverse">
+                    <thead>
+                        <tr>
+                            <th>מקט</th>
+                            <th>סוג</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="val in valueTypeList">
+                            <td>{{val.ValueTypeID}}</td>
+                            <td>{{val.ValueTypeName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-show="show_dataCategory_table" id="dataCategory_table">
+                <table class="table table-inverse">
+                    <thead>
+                        <tr>
+                            <th>מקט</th>
+                            <th>מקט מידע</th>
+                            <th>מקט קטגוריה</th>
+                            <th>תיאור קטגוריה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dataCat in dataCategoryList">
+                            <td>{{dataCat.ID}}</td>
+                            <td>{{dataCat.DataID}}</td>
+                            <td>{{dataCat.CategoryID}}</td>
+                            <td>{{dataCat.CategoryDesc}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           
         </div>
     </div>
 

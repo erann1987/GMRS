@@ -1,11 +1,47 @@
 ﻿angular.module('GMRSapp').factory('AppService', function ($http) {
     var fac = {};
 
-    //get all movies service
-    fac.GetCategories = function () {
+    //get all data service
+    fac.GetAllData = function () {
         req = {
             method: 'GET',
-            url: '/api/gmrs/',
+            url: '/api/gmrs/data',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        return $http(req);
+    }
+
+    fac.GetAllCategories = function () {
+        req = {
+            method: 'GET',
+            url: '/api/gmrs/categories',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        return $http(req);
+    }
+
+    fac.GetAllValueType = function () {
+        req = {
+            method: 'GET',
+            url: '/api/gmrs/valuetype',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        return $http(req);
+    }
+
+    fac.GetAllDataCategory = function () {
+        req = {
+            method: 'GET',
+            url: '/api/gmrs/datacategory',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
