@@ -5,8 +5,8 @@
             { type: 'danger', msg: 'testing alerts!' },
             { type: 'success', msg: 'testing alerts!' }
 	    ];
-	    $scope.addAlert = function () {
-	        $scope.alerts.push({ msg: 'Another alert!' });
+	    $scope.addAlert = function (ty, ms) {
+	        $scope.alerts.push({ type: ty, msg: ms });
 	    };
 	    $scope.closeAlert = function (index) {
 	        $scope.alerts.splice(index, 1);
@@ -16,7 +16,7 @@
 	    $scope.showIncome_categotyCart = false;
 	    $scope.showPieChart = false;
 
-
+	    $scope.idCatToDel;
 
 
 	    $scope.dataList = [];
@@ -28,6 +28,23 @@
 	    $scope.valueTypeList = [];
 	    $scope.show_valueType_table = false;
 
+	    $scope.delCat = function(id)
+	    {
+	        $scope.idCatToDel = id;
+	    }
+	    $scope.deleteCategory = function()
+	    {
+	        AppService.DeleteCategory($scope.idCatToDel).then(function (results) {
+	            for (var i = 0; i < $scope.categoryList.length; i++) {
+	                if ($scope.categoryList[i].CategoryID == $scope.idCatToDel) {
+	                    $scope.categoryList.splice(i, 1);
+	                }
+	            }
+	            $scope.addAlert('success', 'קטגוריה נמחקה!');
+	        }, function (e) {
+	            alert("getting categories failed");
+	        });
+	    }
 
 	    $scope.getAllData = function () {
 	        AppService.GetAllData().then(function (results) {

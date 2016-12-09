@@ -79,6 +79,29 @@ namespace GMRS.Controllers
                 }
             }
         }
+
+        [HttpDelete]
+        [Route("api/gmrs/category/{catId}")]
+        public IHttpActionResult delCategory(int catID)
+        {
+            using (var db = new GMRSDBEntities1())
+            {
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+
+                    Category deleteCategory = db.Category.FirstOrDefault(c => c.CategoryID.Equals(catID));
+                    db.Category.Remove(deleteCategory);
+                    db.SaveChanges();
+
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
     }
 
 }
