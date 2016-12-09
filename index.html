@@ -9,6 +9,11 @@
         td, th {
             text-align: center;
         }
+        div .chart{
+            float:right; 
+            height:400px;
+            width:100%;
+        }
     </style>
     <title>GMRS</title>
 </head>
@@ -36,6 +41,7 @@
                 <table class="table table-inverse">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>קטגוריה</th>
                             <th>סוג</th>
                             <th>ערך</th>
@@ -44,7 +50,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in dataList ">
+                        <tr ng-repeat="data in dataList track by $index">
+                            <td>{{$index +1}}</td>
                             <td>{{data.CategoryDesc}}</td>
                             <td>{{data.ValueTypeName}}</td>
                             <td>{{data.Value}}</td>
@@ -61,19 +68,12 @@
                         <tr>
                             <th>#</th>
                             <th>קטגוריה</th>
-                            <th>פעולה</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="cat in categoryList track by $index">
                             <td>{{$index +1}}</td>
                             <td>{{cat.CategoryName}}</td>
-                            <td>
-                                <div style="margin-bottom:15px" class="btn-group">
-                                    <button type="button" class="btn btn-default" ng-click="">עריכה</button>
-                                    <button ng-click="delCat(cat.CategoryID)" type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteCategoryModal">מחיקה</button>
-                                </div>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,39 +97,19 @@
             </div>
            
             <p>לחץ על סוג גרף שברצונך ליצור:</p>
-            <div style="margin-bottom:15px" class="btn-group">
+            <div style="margin-bottom:15px; float:right" class="btn-group">
                 <button type="button" class="btn btn-warning" ng-click="loadIncome_outcomeChart()"> גרף עמודות </button>
                 <button type="button" class="btn btn-warning" ng-click="loadIncome_category()">גרף שטח </button>
                 <button type="button" class="btn btn-warning" ng-click="loadPieChart()"> גרף פאי </button>
             </div>
 
-            <div style="float:right; height:400px" dir="ltr" id="income_outcomeChart" ng-show="showIncome_outcomeCart"></div>
-            <div style="float:right; height:400px" dir="ltr" id="income_categoryChart" ng-show="showIncome_categotyCart"></div>
-            <div style="float:right; height:400px" dir="ltr" id="pieChart" ng-show="showPieChart"></div>
+            <div class="chart" dir="ltr" id="income_outcomeChart" ng-show="showIncome_outcomeCart"></div>
+            <div class="chart" dir="ltr" id="income_categoryChart" ng-show="showIncome_categotyCart"></div>
+            <div class="chart" dir="ltr" id="pieChart" ng-show="showPieChart"></div>
 
         </div>
 
-        <!-- Delete Category Modal -->
-        <div id="deleteCategoryModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button style="float:left" type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">מחיקת קטגוריה</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>האם אתה בטוח שברצונך למחוק קטגוריה?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">ביטול</button>
-                        <button ng-click="deleteCategory()" type="button" class="btn btn-success" data-dismiss="modal">אישור</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
 
     </div>
 
@@ -148,3 +128,40 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<button ng-click="edCat(cat)" type="button" class="btn btn-default" data-toggle="modal" data-target="#editCategoryModal">ערוך</button>
+
+        <!-- Edit Category Modal -->
+<div id="editCategoryModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button style="float:left" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">עריכת קטגוריה</h4>
+            </div>
+            <div class="modal-body">
+                <p>האם אתה בטוח שברצונך לשמור שינויים?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ביטול</button>
+                <button ng-click="editCategory()" type="button" class="btn btn-success" data-dismiss="modal">אישור</button>
+            </div>
+        </div>
+
+    </div>
+</div>-->

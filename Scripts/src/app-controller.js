@@ -16,9 +16,6 @@
 	    $scope.showIncome_categotyCart = false;
 	    $scope.showPieChart = false;
 
-	    $scope.idCatToDel;
-
-
 	    $scope.dataList = [];
 	    $scope.show_data_table = false;
 
@@ -28,23 +25,6 @@
 	    $scope.valueTypeList = [];
 	    $scope.show_valueType_table = false;
 
-	    $scope.delCat = function(id)
-	    {
-	        $scope.idCatToDel = id;
-	    }
-	    $scope.deleteCategory = function()
-	    {
-	        AppService.DeleteCategory($scope.idCatToDel).then(function (results) {
-	            for (var i = 0; i < $scope.categoryList.length; i++) {
-	                if ($scope.categoryList[i].CategoryID == $scope.idCatToDel) {
-	                    $scope.categoryList.splice(i, 1);
-	                }
-	            }
-	            $scope.addAlert('success', 'קטגוריה נמחקה!');
-	        }, function (e) {
-	            alert("getting categories failed");
-	        });
-	    }
 
 	    $scope.getAllData = function () {
 	        AppService.GetAllData().then(function (results) {
