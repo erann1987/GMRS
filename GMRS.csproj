@@ -101,7 +101,9 @@
     <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\bootstrapFonts\glyphicons-halflings-regular.svg" />
     <Content Include="Styles\styles.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
