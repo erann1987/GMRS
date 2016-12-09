@@ -38,17 +38,6 @@
         return $http(req);
     }
 
-    fac.DeleteCategory = function (id) {
-        req = {
-            method: 'DELETE',
-            url: '/api/gmrs/category/' + id,
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
-        return $http(req);
-    }
 
 
     ////add movie service
