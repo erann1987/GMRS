@@ -38,7 +38,18 @@
         return $http(req);
     }
 
-
+    fac.GetRelevantData = function (year, categoty, type) 
+    {
+        req = {
+            method: 'GET',
+            url: '/api/gmrs/relevantdata/' + type + '/' + categoty + '/' + year,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }
+        return $http(req);
+    }
 
     ////add movie service
     //fac.addMovie = function (movie) {
