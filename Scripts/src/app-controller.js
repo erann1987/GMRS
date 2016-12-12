@@ -1,6 +1,19 @@
 ﻿angular.module('GMRSapp')
 	.controller('AppController', ['$scope', 'AppService',  function ($scope, AppService) {
 
+	    $scope.report = {
+	        reportType: [],
+	        categories: [],
+            years: ['2010','2011','2012','2013','2014','2015','2016'],
+	        cCategory: null,
+	        cReportType: null,
+            cYear: null,
+            data: [],
+            catDesc: [],
+            valForPieChart: [],
+            totalSum: 0
+	    }
+
 	    $scope.alerts = [
             { type: 'danger', msg: 'testing alerts!' },
             { type: 'success', msg: 'testing alerts!' }
@@ -12,24 +25,20 @@
 	        $scope.alerts.splice(index, 1);
 	    };
 
-	    $scope.showIncome_outcomeCart = false;
-	    $scope.showIncome_categotyCart = false;
-	    $scope.showPieChart = false;
 
 	    $scope.dataList = [];
-	    $scope.show_data_table = false;
+	    $scope.showReport = false;
+	    $scope.showDataTable = false;
 
-	    $scope.categoryList = [];
-	    $scope.show_category_table = false;
-
-	    $scope.valueTypeList = [];
-	    $scope.show_valueType_table = false;
-
+	    $scope.createReport = function () {
+	        $scope.getAllCategories();
+	        $scope.getAllValueType();
+	    }
 
 	    $scope.getAllData = function () {
 	        AppService.GetAllData().then(function (results) {
 	            $scope.dataList = results.data;
-	            $scope.show_data_table = true;
+	            $scope.showDataTable = true;
 	        }, function (e) {
 	            alert("getting categories failed");
 	        });
@@ -37,8 +46,7 @@
 
 	    $scope.getAllCategories = function () {
 	        AppService.GetAllCategories().then(function (results) {
-	            $scope.categoryList = results.data;
-	            $scope.show_category_table = true;
+	            $scope.report.categories = results.data;
 	        }, function (e) {
 	            alert("getting categories failed");
 	        });
@@ -46,15 +54,33 @@
 
 	    $scope.getAllValueType = function () {
 	        AppService.GetAllValueType().then(function (results) {
-	            $scope.valueTypeList = results.data;
-	            $scope.show_valueType_table = true;
+	            $scope.report.reportType = results.data;
 	        }, function (e) {
 	            alert("getting categories failed");
 	        });
 	    }
 
+	    $scope.loadRelevantData = function () {
+	        AppService.GetRelevantData($scope.report.cYear, $scope.report.cCategory.CategoryName, $scope.report.cReportType.ValueTypeName).then(function (results) {
+	            $scope.report.data = results.data;
+	            $scope.report.totalSum = 0;
+	            for (i = 0; i < results.data.length; i++) {
+	                $scope.report.catDesc[i] = results.data[i]["name"];
+	                $scope.report.valForPieChart[i] = results.data[i]["y"];
+	                $scope.report.totalSum = $scope.report.totalSum + $scope.report.valForPieChart[i];
 
-	    $scope.loadIncome_outcomeChart = function ()
+	            }
+	            for (j = 0; j < results.data.length; j++) {
+	                $scope.report.valForPieChart[j] = $scope.report.valForPieChart[j] / $scope.report.totalSum;
+	            }
+	            $scope.loadPieChart();
+	            $scope.showReport = true;
+	        }, function (e) {
+	            alert("getting categories failed");
+	        });
+	    }
+
+	    $scope.loadBarChart = function ()
 	    {
 	        $scope.showIncome_outcomeCart = true;
 
@@ -66,7 +92,7 @@
 	                text: 'הוצאות הכנסות'
 	            },
 	            xAxis: {
-	                categories: ['נתניה', 'בא שבע', 'חיפה']
+	                categories: $scope.report.catDesc
 	            },
 	            yAxis: {
 	                title: {
@@ -75,15 +101,15 @@
 	            },
 	            series: [{
 	                name: 'הנכסות',
-	                data: [10523, 4150, 5524]
+	                data: [514334, 326337, 346553]
 	            }, {
 	                name: 'הוצאות',
-	                data: [5135, 6467, 3653]
+	                data: [513434, 646337, 344653]
 	            }]
 	        });
 	    }
 
-	    $scope.loadIncome_category = function ()
+	    $scope.loadChart = function ()
 	    {
 	        $scope.showIncome_categotyCart = true;
 	        Highcharts.chart('income_categoryChart', {
@@ -158,7 +184,7 @@
 	                type: 'pie'
 	            },
 	            title: {
-	                text: 'פילוג הכנסות לפי קטגוריה שנת 2015'
+	                text: ' פילוג הכנסות לפי ' + $scope.report.cCategory.CategoryName + ' שנת ' + $scope.report.cYear
 	            },
 	            tooltip: {
 	                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -176,33 +202,15 @@
 	                    }
 	                }
 	            },
+	            legend: {
+	                rtl: true
+	            }, useHTML : true,
 	            series: [{
-	                name: 'Cities',
+	                name: $scope.report.cCategory.CategoryName,
 	                colorByPoint: true,
-	                data: [{
-	                    name: 'Tel aviv',
-	                    y: 56.33
-	                }, {
-	                    name: 'Jerusalem',
-	                    y: 24.03,
-	                    sliced: true,
-	                    selected: true
-	                }, {
-	                    name: 'Haifa',
-	                    y: 10.38
-	                }, {
-	                    name: 'Ashdod',
-	                    y: 4.77
-	                }, {
-	                    name: 'Eilat',
-	                    y: 0.91
-	                }, {
-	                    name: 'Natanya',
-	                    y: 0.2
-	                }]
+	                data: $scope.report.valForPieChart
 	            }]
 	        });
 	    }
 	    
-
  }]);

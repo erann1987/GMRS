@@ -74,5 +74,40 @@ namespace GMRS.Controllers
                 }
             }
         }
+
+
+        [Route("api/gmrs/relevantdata/{type}/{category}/{year}")]
+        public IHttpActionResult getRelevantData([FromUri] int year, [FromUri] string category, [FromUri] string type)
+        {
+            using (var db = new GMRSDBEntities1())
+            {
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    var data = (from DataCategory in db.DataCategory
+                                where
+                                  DataCategory.Data.Year == year &&
+                                  DataCategory.Category.CategoryName == category &&
+                                  DataCategory.Data.ValueType.ValueTypeName == type
+                                group new { DataCategory, DataCategory.Data } by new
+                                {
+                                    DataCategory.CategoryDesc,
+                                    DataCategory.Data.Year
+                                } into g
+                                select new
+                                {
+                                    y = (double?)g.Sum(p => p.DataCategory.Data.Value),
+                                    name = g.Key.CategoryDesc
+                                }).ToList();
+                    return Ok(data);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
+    
     }
 }
