@@ -35,11 +35,11 @@
                 <button type="button" class="btn btn-primary" ng-click="getAllData()">טען טבלת מידע</button>
                 <button ng-click="createReport()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#createReportModal">צור דוח</button>
             </div>
-            <div ng-show="showDataTable" id="data_table">
+            <div style="height:400px; overflow:auto" ng-show="showDataTable" id="data_table">
                 <p>טבלת מידע:</p>
-                <table class="table table-inverse">
+                <table class="table table-inverse table-bordered table-hover table-fixed">
                     <thead>
-                        <tr>
+                        <tr class="bg-primary">
                             <th>#</th>
                             <th>קטגוריה</th>
                             <th>סוג</th>
@@ -62,9 +62,9 @@
             </div>
            
             <div id="report_table" ng-show="showReport">
-                <table class="table table-inverse">
+                <table class="table table-bordered table-inverse table-hover ">
                     <thead>
-                        <tr>
+                        <tr class="bg-primary">
                             <th>#</th>
                             <th>{{report.cCategory.CategoryName}}</th>
                             <th>שנה</th>
