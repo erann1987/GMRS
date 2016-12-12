@@ -16,3 +16,18 @@ C:\Users\Eran\documents\visual studio 2013\Projects\GMRS\GMRS\bin\System.Web.Htt
 C:\Users\Eran\documents\visual studio 2013\Projects\GMRS\GMRS\obj\Debug\GMRS.csprojResolveAssemblyReference.cache
 C:\Users\Eran\documents\visual studio 2013\Projects\GMRS\GMRS\obj\Debug\GMRS.dll
 C:\Users\Eran\documents\visual studio 2013\Projects\GMRS\GMRS\obj\Debug\GMRS.pdb
+C:\GMRS\GMRS\bin\GMRS.dll.config
+C:\GMRS\GMRS\bin\GMRS.dll
+C:\GMRS\GMRS\bin\GMRS.pdb
+C:\GMRS\GMRS\bin\System.Net.Http.Formatting.dll
+C:\GMRS\GMRS\bin\System.Web.Http.dll
+C:\GMRS\GMRS\bin\System.Web.Http.WebHost.dll
+C:\GMRS\GMRS\bin\EntityFramework.xml
+C:\GMRS\GMRS\bin\EntityFramework.SqlServer.xml
+C:\GMRS\GMRS\bin\Newtonsoft.Json.xml
+C:\GMRS\GMRS\bin\System.Net.Http.Formatting.xml
+C:\GMRS\GMRS\bin\System.Web.Http.xml
+C:\GMRS\GMRS\bin\System.Web.Http.WebHost.xml
+C:\GMRS\GMRS\obj\Debug\GMRS.csprojResolveAssemblyReference.cache
+C:\GMRS\GMRS\obj\Debug\GMRS.dll
+C:\GMRS\GMRS\obj\Debug\GMRS.pdb

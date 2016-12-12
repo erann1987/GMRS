@@ -24,8 +24,40 @@
         <p class="lead">כאן תוכל ליצור דוחות אינטרקטיבים בצורה מהירה ויעילה!</p>
         <hr class="my-2">
         <h6 style="text-align:right">פותח ע"י: ערן נחום וגור אריה יהודה</h6>
-        <button style="float:right" class="btn btn-info btn-xs">קרא עוד</button>
+        <button style="float:right" data-toggle="modal" data-target="#infoModal" class="btn btn-info btn-xs">קרא עוד</button>
     </div>
+
+    <!-- Modal For Info -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">אודות GMRS</h4>
+                </div>
+                <div class="modal-body">
+                    מערכת ה-GMRS מספקת יצירה מהירה של מערכות מידע מבוססות אינטרנט מהסוג "דוחות מנהלים".
+                    <br>
+                    GMRS מאפשרת יצירת דוחות אינטראקטיביים מבוססי דפדפן עם ויזואליזציה עשירה (גרפים) המבוססת על טכנולוגיות ה-web המתקדמות שפותחו על ידי Google ו-Tweeter.
+                    <br>
+                    המערכת מאפשרת לכל משתמש ליצור דוחות לפי דרישה שיאפשרו לו מבט מלמעלה של הארגון.
+                    <br>
+                    היישום מתבסס על טכנולוגיות אינטרנט חדשות, מתן ממשק משתמש עשיר, ארכיטקטורת שרת-לקוח אופטימלית, ביצועים גבוהים, תאימות מלאה ותמיכה מלאה בעברית.
+                    <br>
+                    המערכת פותחה במסגרת פרויקט הגמר ע"י ערן נחום וגור אריה יהודה
+                    <br>
+                    בהנחיית מר אלכס קסלמן
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">סגור</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Modal For Info -->
+
     <div ng-controller="AppController">
         <div style="text-align:center" dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
         <div class="container">
