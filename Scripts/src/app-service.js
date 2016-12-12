@@ -38,15 +38,22 @@
         return $http(req);
     }
 
-    fac.GetRelevantData = function (year, categoty, type) 
+    fac.GetRelevantData = function (rep) 
     {
+        var report = {
+            category: rep.cCategory.CategoryName,
+            startYear: rep.cStartYear,
+            endYear: rep.cEndYear,
+            reportType: rep.cReportType
+        }
         req = {
-            method: 'GET',
-            url: '/api/gmrs/relevantdata/' + type + '/' + categoty + '/' + year,
+            method: 'POST',
+            url: '/api/gmrs/relevantdata',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            }
+            },
+            data: JSON.stringify(report)
         }
         return $http(req);
     }

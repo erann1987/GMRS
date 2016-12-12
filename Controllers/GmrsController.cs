@@ -75,20 +75,22 @@ namespace GMRS.Controllers
             }
         }
 
-
-        [Route("api/gmrs/relevantdata/{type}/{category}/{year}")]
-        public IHttpActionResult getRelevantData([FromUri] int year, [FromUri] string category, [FromUri] string type)
+        [HttpPost]
+        [Route("api/gmrs/relevantdata")]
+        public IHttpActionResult RelevantData([FromBody] Report report)
         {
             using (var db = new GMRSDBEntities1())
             {
                 try
                 {
                     db.Configuration.ProxyCreationEnabled = false;
+                    string d1 = report.reportType[0];
+
                     var data = (from DataCategory in db.DataCategory
                                 where
-                                  DataCategory.Data.Year == year &&
-                                  DataCategory.Category.CategoryName == category &&
-                                  DataCategory.Data.ValueType.ValueTypeName == type
+                                  DataCategory.Data.Year >= report.startYear && DataCategory.Data.Year <= report.endYear &&
+                                  DataCategory.Category.CategoryName == report.category &&
+                                  DataCategory.Data.ValueType.ValueTypeName == d1
                                 group new { DataCategory, DataCategory.Data } by new
                                 {
                                     DataCategory.CategoryDesc,
@@ -96,6 +98,7 @@ namespace GMRS.Controllers
                                 } into g
                                 select new
                                 {
+                                    year = g.Key.Year,
                                     y = (double?)g.Sum(p => p.DataCategory.Data.Value),
                                     name = g.Key.CategoryDesc
                                 }).ToList();
@@ -109,5 +112,13 @@ namespace GMRS.Controllers
         }
 
     
+    }
+
+    public class Report
+    {
+        public String category;
+        public int startYear;
+        public int endYear;
+        public string[] reportType;
     }
 }

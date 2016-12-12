@@ -1,17 +1,37 @@
 ﻿angular.module('GMRSapp')
 	.controller('AppController', ['$scope', 'AppService',  function ($scope, AppService) {
 
+	    $scope.areaChart = {
+	        categories: [],
+            series: []
+	    }
+
+	    $scope.renderDataAreaChart = function()
+	    {
+	        var size = $scope.report.cEndYear - $scope.report.cStartYear + 1;
+	        for (i = 0; i < size; i++) {
+	            $scope.areaChart.categories.push(parseInt($scope.report.cStartYear) + parseInt(i));
+	        }
+	        for (j = 0; j < $scope.report.data.length ; j = j + size) {
+	            $scope.areaChart.series.push({
+	                name: $scope.report.data[j].name,
+	                data: []
+	            });
+	        }
+	        for (i = 0; i < $scope.areaChart.series.length; i++)
+	            for (j = 0; j < size; j++)
+	                $scope.areaChart.series[i].data.push($scope.report.data[i + j].y);
+	    }
+
 	    $scope.report = {
 	        reportType: [],
 	        categories: [],
-            years: ['2010','2011','2012','2013','2014','2015','2016'],
+            years: ['2012','2013','2014','2015','2016'],
 	        cCategory: null,
-	        cReportType: null,
-            cYear: null,
-            data: [],
-            catDesc: [],
-            valForPieChart: [],
-            totalSum: 0
+	        cReportType: [],
+	        cStartYear: null,
+	        cEndYear: null,
+            data: []
 	    }
 
 	    $scope.alerts = [
@@ -55,25 +75,19 @@
 	    $scope.getAllValueType = function () {
 	        AppService.GetAllValueType().then(function (results) {
 	            $scope.report.reportType = results.data;
+	            $scope.$watch(function () {
+	                $('.selectpicker').selectpicker('refresh');
+	            });
 	        }, function (e) {
 	            alert("getting categories failed");
 	        });
 	    }
 
 	    $scope.loadRelevantData = function () {
-	        AppService.GetRelevantData($scope.report.cYear, $scope.report.cCategory.CategoryName, $scope.report.cReportType.ValueTypeName).then(function (results) {
+	        AppService.GetRelevantData($scope.report).then(function (results) {
 	            $scope.report.data = results.data;
-	            $scope.report.totalSum = 0;
-	            for (i = 0; i < results.data.length; i++) {
-	                $scope.report.catDesc[i] = results.data[i]["name"];
-	                $scope.report.valForPieChart[i] = results.data[i]["y"];
-	                $scope.report.totalSum = $scope.report.totalSum + $scope.report.valForPieChart[i];
-
-	            }
-	            for (j = 0; j < results.data.length; j++) {
-	                $scope.report.valForPieChart[j] = $scope.report.valForPieChart[j] / $scope.report.totalSum;
-	            }
-	            $scope.loadPieChart();
+	            $scope.renderDataAreaChart();
+	            $scope.loadLineChart();
 	            $scope.showReport = true;
 	        }, function (e) {
 	            alert("getting categories failed");
@@ -109,74 +123,51 @@
 	        });
 	    }
 
-	    $scope.loadChart = function ()
+	    $scope.loadLineChart = function ()
 	    {
-	        $scope.showIncome_categotyCart = true;
-	        Highcharts.chart('income_categoryChart', {
-	            chart: {
-	                type: 'area'
+	        Highcharts.chart('lineChart', {
+	            credits: {
+	                text: 'ערן התותח',
+	                href: 'https://www.facebook.com/Eran.Math.teacher/'
 	            },
 	            title: {
-	                text: 'גרף הכנסות לפי מרכז רווח '
+	                text: 'גרף ' + $scope.report.cReportType + ' שנתי ',
+	                x: -20 //center
 	            },
 	            subtitle: {
-	                text: 'מרכז רווח: יבשות לפי שנים'
+	                text: 'לפי '+ $scope.report.cCategory.CategoryName,
+	                x: -20
 	            },
 	            xAxis: {
-	                categories: ['2010', '2011', '2012', '2013', '2014', '2015', '2016'],
-	                tickmarkPlacement: 'on',
-	                title: {
-	                    enabled: false
-	                }
+	                categories: $scope.areaChart.categories
 	            },
 	            yAxis: {
 	                title: {
-	                    text: 'באלפי שקלים'
+	                    text: '(ש"ח)'
 	                },
-	                //labels: {
-	                //    formatter: function () {
-	                //        return this.value / 1000;
-	                //    }
-	                //}
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
 	            },
-	            tooltip: {
-	                split: true,
-	                valueSuffix: 'ש"ח '
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'middle',
+	                borderWidth: 0
 	            },
-	            plotOptions: {
-	                area: {
-	                    stacking: 'normal',
-	                    lineColor: '#666666',
-	                    lineWidth: 1,
-	                    marker: {
-	                        lineWidth: 1,
-	                        lineColor: '#666666'
-	                    }
-	                }
-	            },
-	            series: [{
-	                name: 'אסיה',
-	                data: [5002, 6305, 8009, 9407, 10402, 3634, 5268]
-	            }, {
-	                name: 'אפריקה',
-	                data: [2106, 1507, 4111, 3133, 1221, 2767, 1766]
-	            }, {
-	                name: 'אירופה',
-	                data: [5163, 2403, 6276, 7408, 6547, 7329, 6228]
-	            }, {
-	                name: 'אמריקה',
-	                data: [1458, 3451, 5334, 1536, 3349, 8418, 1201]
-	            }, {
-	                name: 'אוסטרליה',
-	                data: [2454, 3132, 2121, 4546, 1213, 3012, 4216]
-	            }]
+	            series: $scope.areaChart.series
 	        });
 	    }
 
 	    $scope.loadPieChart = function ()
 	    {
-	        $scope.showPieChart = true
 	        Highcharts.chart('pieChart', {
+	            credits: {
+	                text: 'ערן התותח',
+	                href: 'https://www.facebook.com/Eran.Math.teacher/'
+	            },
 	            chart: {
 	                plotBackgroundColor: null,
 	                plotBorderWidth: null,
@@ -184,7 +175,7 @@
 	                type: 'pie'
 	            },
 	            title: {
-	                text: ' פילוג הכנסות לפי ' + $scope.report.cCategory.CategoryName + ' שנת ' + $scope.report.cYear
+	                text: ' פילוג הכנסות לפי ' + $scope.report.cCategory.CategoryName + ' שנים: ' + $scope.report.cStartYear + '-' + $scope.report.cEndYear
 	            },
 	            tooltip: {
 	                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -200,6 +191,11 @@
 	                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
 	                        }
 	                    }
+	                }
+	            },
+	            xAxis: {
+	                labels: {
+	                    align: 'left'
 	                }
 	            },
 	            legend: {
