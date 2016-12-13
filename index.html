@@ -60,7 +60,7 @@
                     </tbody>
                 </table>
             </div>
-           
+            <p>טבלת מידע:</p>
             <div id="report_table" ng-show="showReport">
                 <table datatable="ng" dt-options="dtOptions" class="table table-bordered table-inverse table-hover ">
                     <thead>
@@ -80,6 +80,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <p>גרף מותאם:</p>
                 <div class="chart" dir="ltr" id="lineChart"></div>
             </div>
         </div>        
@@ -131,28 +132,6 @@
             </div>
         </div>
 
-
-        <!--<div>
-            <table datatable="ng" dt-options="dtOptions" class="table table-bordered table-inverse table-hover ">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>{{report.cCategory.CategoryName}}</th>
-                        <th>שנה</th>
-                        <th>סכום</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="data in report.data track by $index">
-                        <td>{{$index +1}}</td>
-                        <td>{{data.name}}</td>
-                        <td>{{data.year}}</td>
-                        <td>{{data.y}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>-->
-
     </div>
 
 
@@ -173,6 +152,7 @@
     <script src="/Scripts/src/app-service.js"></script>
     <script src="/Scripts/src/app-controller.js"></script>
     <link href="Styles/angular-datatables.css" rel="stylesheet" />
+
 
 </body>
 </html>
