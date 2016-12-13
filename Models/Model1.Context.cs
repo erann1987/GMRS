@@ -7,27 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GMRS.Models
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
+public partial class GMRSDBEntities1 : DbContext
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class GMRSDBEntities1 : DbContext
+    public GMRSDBEntities1()
+        : base("name=GMRSDBEntities1")
     {
-        public GMRSDBEntities1()
-            : base("name=GMRSDBEntities1")
-        {
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Data> Data { get; set; }
-        public virtual DbSet<DataCategory> DataCategory { get; set; }
-        public virtual DbSet<ValueType> ValueType { get; set; }
     }
+
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    {
+        throw new UnintentionalCodeFirstException();
+    }
+
+    public virtual DbSet<Category> Category { get; set; }
+    public virtual DbSet<Data> Data { get; set; }
+    public virtual DbSet<DataCategory> DataCategory { get; set; }
+    public virtual DbSet<ValueType> ValueType { get; set; }
 }
