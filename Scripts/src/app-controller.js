@@ -132,30 +132,44 @@
 	            },
 	            title: {
 	                text: 'גרף ' + $scope.report.cReportType + ' שנתי ',
-	                x: -20 //center
+	                x: -20, //center
+	                useHTML: Highcharts.hasBidiBug
 	            },
 	            subtitle: {
 	                text: 'לפי '+ $scope.report.cCategory.CategoryName,
 	                x: -20
 	            },
 	            xAxis: {
-	                categories: $scope.areaChart.categories
+	                categories: $scope.areaChart.categories,
+	                reversed: true,
+	                title: {
+                        text: 'שנים'
+	                }
 	            },
 	            yAxis: {
 	                title: {
-	                    text: '(ש"ח)'
+	                    text: '(ש"ח)',
+	                    useHTML: Highcharts.hasBidiBug
 	                },
 	                plotLines: [{
 	                    value: 0,
 	                    width: 1,
 	                    color: '#808080'
-	                }]
+	                }],
+	                opposite: true,
 	            },
 	            legend: {
 	                layout: 'vertical',
 	                align: 'right',
 	                verticalAlign: 'middle',
-	                borderWidth: 0
+	                borderWidth: 0,
+	                rtl: true,
+                    useHTML: Highcharts.hasBidiBug
+	            },
+	            tooltip: {
+	                useHTML: true,
+	                headerFormat: '<small>{point.key}</small><table>',
+	                pointFormat: '<tr><td style="color: {series.color}"> {point.y} שח &nbsp;</td>' + '<td style="text-align: right"><b>  :{series.name}</b></td></tr>'
 	            },
 	            series: $scope.areaChart.series
 	        });
