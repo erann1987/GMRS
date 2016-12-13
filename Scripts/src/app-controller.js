@@ -1,5 +1,11 @@
 ﻿angular.module('GMRSapp')
-	.controller('AppController', ['$scope', 'AppService',  function ($scope, AppService) {
+	.controller('AppController', ['$scope', 'AppService', 'DTOptionsBuilder', function ($scope, AppService, DTOptionsBuilder) {
+
+	    $scope.dtOptions = DTOptionsBuilder.newOptions()
+        .withDisplayLength(10)
+        .withOption('bLengthChange', false);
+
+
 
 	    $scope.areaChart = {
 	        categories: [],
@@ -58,7 +64,8 @@
 	    $scope.getAllData = function () {
 	        AppService.GetAllData().then(function (results) {
 	            $scope.dataList = results.data;
-	            $scope.showDataTable = true;
+	            //$scope.showDataTable = true;
+	            //$('#example').DataTable();
 	        }, function (e) {
 	            alert("getting categories failed");
 	        });

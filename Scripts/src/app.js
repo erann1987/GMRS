@@ -1,2 +1,2 @@
 ﻿//Module
-var app = angular.module('GMRSapp', ['ui.bootstrap']);
+var app = angular.module('GMRSapp', ['datatables','ui.bootstrap']);
